@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glyphic Palette — Design &amp; Growth Agency, Berhampur</title>
+<meta name="description" content="Glyphic Palette is a design and growth agency building brand identity, web, and marketing systems for businesses that want to be impossible to ignore.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="is-active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="contact.html" class="btn btn-ghost">Start a project</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="hero">
+  <canvas class="hero-canvas"></canvas>
+  <!-- Floating video, layered over the vortex canvas. Swap the src below
+       for your own clip (vertical / 9:16 works best at this frame size). -->
+  <div class="hero-video-frame">
+    <video muted autoplay loop playsinline preload="none">
+      <source src="assets/glyphic.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-tag"><span class="dot"></span>Design &amp; growth agency, based in Berhampur, Odisha</p>
+      <h1>We build brands that pull people in.</h1>
+      <div class="hero-sub">
+        <p class="lede">Identity, websites, and marketing that compound — built by one team that stays close to the work, from first sketch to the numbers it produces.</p>
+        <div class="hero-cta">
+          <a href="contact.html" class="btn btn-primary">Start a project</a>
+          <a href="about.html" class="btn btn-ghost">How we work</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Brand Identity</span><span>Social Media</span><span>Paid Advertising</span><span>Content Marketing</span><span>Web Design &amp; Dev</span><span>SEO &amp; Search</span>
+    <span>Brand Identity</span><span>Social Media</span><span>Paid Advertising</span><span>Content Marketing</span><span>Web Design &amp; Dev</span><span>SEO &amp; Search</span>
+  </div>
+</div>
+
+<!-- =========================================================
+     Featured Work — horizontal scroll-scrubbed gallery, powered by
+     GSAP ScrollTrigger (loaded above). Card count is driven entirely
+     by the WORK_ITEMS array in assets/script.js — add or remove
+     entries there and it just works, no markup changes needed.
+     ========================================================= -->
+<section class="vortex-section" id="work">
+  <div class="vortex-bg" aria-hidden="true">
+    <div class="vortex-bg-track">
+      <span>Featured Work</span><span>Featured Work</span><span>Featured Work</span><span>Featured Work</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Featured work</h2>
+      <p class="lede">A handful of recent builds. Scroll to move through the reel, or jump straight to one.</p>
+    </div>
+  </div>
+  <div class="vortex-pin">
+    <div class="vortex-stage" data-vortex-stage="work"></div>
+    <div class="wrap">
+      <div class="vortex-caption">
+        <p class="vortex-caption-title" data-vortex-title="work"></p>
+        <p class="vortex-caption-desc" data-vortex-desc="work"></p>
+      </div>
+      <div class="vortex-nav">
+        <button class="t-btn" data-vortex-prev="work" aria-label="Previous project"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="t-dots" data-vortex-dots="work"></div>
+        <button class="t-btn" data-vortex-next="work" aria-label="Next project"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     What We Do — original phone-bezel carousel (tap a tab, phone
+     slides to center; pure horizontal slide, no tilt).
+     ========================================================= -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What we do</h2>
+      <p class="lede">Six disciplines, one team — so a brand's strategy, look, and media never drift out of sync.</p>
+    </div>
+    <div class="service-tabs" role="tablist" aria-label="Services"></div>
+    <div class="phone-stage"></div>
+    <div class="phones-caption">
+      <p class="service-name" data-phones-name></p>
+      <p class="service-desc" data-phones-desc></p>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Why Glyphic Palette</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <p class="pillar-num">01</p>
+        <h3>Full-funnel, one roof</h3>
+        <p>Strategy, design, content, and media handled by a team that already knows the brand — nothing gets lost in a handoff.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar-num">02</p>
+        <h3>Direct, fast communication</h3>
+        <p>No account layers between you and the work. You talk to the people actually building it.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar-num">03</p>
+        <h3>Built for measurable growth</h3>
+        <p>Every project ties back to a number worth reporting — traffic, leads, or sales, not just "engagement."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wall-section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What clients say</h2>
+      <p class="lede">Two rows, always moving in opposite directions — hover either one to pause and read.</p>
+    </div>
+  </div>
+  <div class="wall" data-wall aria-label="Client testimonials, auto-scrolling">
+    <div class="wall-row wall-row--a">
+      <div class="wall-track" data-wall-track="a"></div>
+    </div>
+    <div class="wall-row wall-row--b">
+      <div class="wall-track" data-wall-track="b"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="wrap">
+    <div class="cta-banner">
+      <p class="eyebrow">Ready when you are</p>
+      <h2>Let's build a brand<br>people remember.</h2>
+      <a href="contact.html" class="btn btn-primary">Start a project</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>FAQ</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">01</span> What does Glyphic Palette actually do?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>We handle brand identity, websites, and the marketing that drives traffic to them — content, paid ads, social, and SEO — as one connected system rather than separate vendors.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">02</span> How fast can a project start?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Most engagements kick off within a week of a scoping call. Smaller projects like a landing page can start sooner.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">03</span> Do you work with businesses outside Odisha?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Yes. We're based in Berhampur but work with clients across India remotely, over calls and shared boards.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">04</span> What's included in a website project?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Strategy and structure, design, build, and a short handover so the client can update content without needing us for every change.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">05</span> How is pricing structured?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Fixed-scope quotes for defined projects like a website or brand identity, and monthly retainers for ongoing marketing work.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">06</span> How do we get started?</span><span class="plus"></span></button>
+        <div class="faq-a"><p>Send a note through the contact page with what you're building. We'll reply with next steps within a day.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
+        <p>A design and growth agency for businesses that want their brand to feel inevitable.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Networks</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@glyphicpalette.com">hello@glyphicpalette.com</a></li>
+            <li><a href="tel:+910000000000">+91 00000 00000</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Glyphic Palette. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+  <div class="footer-marquee">
+    <div class="marquee-track">
+      <span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span>
+      <span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/script.js"></script>
+</body>
+</html>
