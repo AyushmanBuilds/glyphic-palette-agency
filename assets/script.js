@@ -4,12 +4,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initHeroVideoFit();
-  initVortex();
   initWorkVortexReel();
   initServicePhones();
   initTestimonials();
   initFAQ();
   initContactForm();
+  initFounderReveal();
   requestAnimationFrame(() => {
     document.querySelectorAll(".hero").forEach(h => h.classList.add("is-ready"));
   });
@@ -19,21 +19,53 @@ document.addEventListener("DOMContentLoaded", () => {
 function initNav(){
   const nav = document.querySelector(".nav");
   const toggle = document.querySelector(".nav-toggle");
-  const links = document.querySelector(".nav-links");
+  const panel = document.querySelector(".nav-panel");
+  const closeBtn = document.querySelector(".nav-panel-close");
+  const backdrop = document.querySelector(".nav-backdrop");
   if(!nav) return;
 
   const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 12);
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  if(toggle && links){
-    toggle.addEventListener("click", () => {
-      links.classList.toggle("is-open");
-    });
-    links.querySelectorAll("a").forEach(a =>
-      a.addEventListener("click", () => links.classList.remove("is-open"))
-    );
+  if(!toggle || !panel) return;
+
+  function openMenu(){
+    panel.classList.add("is-open");
+    backdrop && backdrop.classList.add("is-open");
+    toggle.classList.add("is-active");
+    toggle.setAttribute("aria-expanded", "true");
+    document.body.classList.add("nav-lock");
   }
+  function closeMenu(){
+    panel.classList.remove("is-open");
+    backdrop && backdrop.classList.remove("is-open");
+    toggle.classList.remove("is-active");
+    toggle.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-lock");
+  }
+  function toggleMenu(){
+    panel.classList.contains("is-open") ? closeMenu() : openMenu();
+  }
+
+  toggle.addEventListener("click", toggleMenu);
+  closeBtn && closeBtn.addEventListener("click", closeMenu);
+  backdrop && backdrop.addEventListener("click", closeMenu);
+
+  panel.querySelectorAll(".nav-links-list a").forEach(a =>
+    a.addEventListener("click", closeMenu)
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && panel.classList.contains("is-open")) closeMenu();
+  });
+
+  // If the viewport grows back past the mobile breakpoint while the
+  // panel is open (e.g. rotating a tablet), close it so it doesn't
+  // get stuck open behind the desktop layout.
+  window.addEventListener("resize", () => {
+    if(window.innerWidth > 860 && panel.classList.contains("is-open")) closeMenu();
+  });
 }
 
 /* ---------- Hero video: shape the frame to match the actual clip ----------
@@ -58,103 +90,6 @@ function initHeroVideoFit(){
 
   if(video.readyState >= 1) applyRatio();
   video.addEventListener("loadedmetadata", applyRatio);
-}
-
-/* ---------- Hero vortex (canvas, pseudo-3D funnel of particles) ---------- */
-function initVortex(){
-  const canvas = document.querySelector(".hero-canvas");
-  if(!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  let w, h, cx, cy, dpr;
-  let particles = [];
-  const COUNT = window.innerWidth < 700 ? 160 : 320;
-  const REDS = ["#e2233a", "#ff4757", "#7f0f22", "#c81c33"];
-
-  function resize(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = canvas.clientWidth = canvas.parentElement.clientWidth;
-    h = canvas.clientHeight = canvas.parentElement.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cx = w * 0.78;
-    cy = h * 0.46;
-  }
-
-  function makeParticle(spawn){
-    const funnelHeight = h * 0.86;
-    const t = spawn ? Math.random() : Math.random();
-    const yFromTop = t * funnelHeight;
-    const maxRadiusAtY = 40 + (yFromTop / funnelHeight) * (Math.min(w, h) * 0.34);
-    return {
-      angle: Math.random() * Math.PI * 2,
-      radius: Math.random() * maxRadiusAtY,
-      maxRadiusAtY,
-      y: yFromTop,
-      speed: 0.004 + Math.random() * 0.01,
-      drift: (Math.random() - 0.5) * 0.0006,
-      size: 0.6 + Math.random() * 2.6,
-      color: REDS[Math.floor(Math.random() * REDS.length)],
-      wobble: Math.random() * Math.PI * 2,
-    };
-  }
-
-  function seed(){
-    particles = [];
-    for(let i = 0; i < COUNT; i++) particles.push(makeParticle(true));
-  }
-
-  function draw(){
-    ctx.clearRect(0, 0, w, h);
-    const topY = cy - h * 0.42;
-
-    particles.forEach(p => {
-      p.angle += p.speed + p.drift;
-      p.wobble += 0.01;
-      const yPos = topY + p.y;
-      const wob = Math.sin(p.wobble) * 4;
-      const r = p.radius + wob;
-      const x = cx + Math.cos(p.angle) * r;
-      const y = yPos + Math.sin(p.angle) * r * 0.28;
-
-      const depth = 1 - p.y / (h * 0.86);
-      const alpha = 0.15 + depth * 0.55;
-      const size = p.size * (0.5 + depth * 1.1);
-
-      ctx.beginPath();
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
-      ctx.arc(x, y, size, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.globalAlpha = 1;
-
-    // funnel core glow
-    const grad = ctx.createRadialGradient(cx, topY + h * 0.7, 4, cx, topY + h * 0.7, 90);
-    grad.addColorStop(0, "rgba(226,35,58,.28)");
-    grad.addColorStop(1, "rgba(226,35,58,0)");
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(cx, topY + h * 0.7, 90, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  function tick(){
-    draw();
-    if(!reduceMotion) requestAnimationFrame(tick);
-  }
-
-  resize();
-  seed();
-  window.addEventListener("resize", () => { resize(); });
-
-  if(reduceMotion){
-    draw();
-  }else{
-    requestAnimationFrame(tick);
-  }
 }
 
 function shortestOffset(idx, from, n){
@@ -254,6 +189,18 @@ function initWorkVortexReel(){
     function build(){
       if(st){ st.kill(); st = null; }
       gsap.set(track, { x: 0 });
+
+      // Guard: if the stage hasn't been laid out yet (0 width — can
+      // happen on first paint, tab restore, or while fonts/webfonts
+      // are still swapping and reflowing the page), retry on the next
+      // frame instead of pinning against a bogus 0-length track. This
+      // is what caused the reel to sometimes render "broken" — collapsed
+      // or overlapping cards — depending on load timing/screen size.
+      if(stage.clientWidth === 0){
+        requestAnimationFrame(build);
+        return;
+      }
+
       const dist = scrollDistance();
       if(dist <= 0){
         // Not enough cards to overflow the stage at this width — just
@@ -317,12 +264,26 @@ function initWorkVortexReel(){
     build();
     updateEmphasis();
 
+    // Only rebuild on real width changes — mobile browsers fire resize
+    // when the URL bar hides/shows (height-only), which used to
+    // retrigger the whole pin calculation and could leave the reel in
+    // a half-built state.
     let resizeTimer = null;
+    let lastWidth = window.innerWidth;
     window.addEventListener("resize", () => {
+      if(window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(build, 200);
     });
+
+    // Re-measure once webfonts and the full page (images/videos) have
+    // settled, since either can silently shift layout after the first
+    // build and leave ScrollTrigger's cached distances stale.
     window.addEventListener("load", () => ScrollTrigger.refresh());
+    if(document.fonts && document.fonts.ready){
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
   }
 
   /* ---- fallback: plain native horizontal scroll-snap ---- */
@@ -447,7 +408,7 @@ function initServicePhones(){
       orb.style.setProperty("--op", op.toFixed(2));
       orb.style.setProperty("--blur", `${blur}px`);
       orb.style.setProperty("--sat", sat.toFixed(2));
-      orb.style.zIndex = String(100 - abs * 10);
+      orb.style.zIndex = String(20 - abs * 5);
       orb.classList.toggle("is-center", abs === 0);
       orb.classList.toggle("is-far", abs > 1);
 
@@ -590,6 +551,28 @@ function initFAQ(){
       }
     });
   });
+}
+
+/* ---------- Founder section reveal ---------- */
+function initFounderReveal(){
+  const els = document.querySelectorAll("[data-reveal]");
+  if(!els.length) return;
+
+  if(!("IntersectionObserver" in window)){
+    els.forEach(el => el.classList.add("is-in"));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("is-in");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25, rootMargin: "0px 0px -60px 0px" });
+
+  els.forEach(el => io.observe(el));
 }
 
 /* ---------- Contact form ----------
