@@ -1910,6 +1910,7 @@ footer{
   position: relative; z-index: 1;
   font-family: var(--font-display); font-weight: 700; text-transform: none; letter-spacing: 0;
   font-size: clamp(24px, 4vw, 30px); line-height: 1.1; margin-bottom: 6px;
+  color: var(--red-deep);
 }
 .welcome-modal-role{
   position: relative; z-index: 1;
@@ -1917,7 +1918,7 @@ footer{
 }
 .welcome-modal-msg{
   position: relative; z-index: 1;
-  font-size: 15px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 26px;
+  font-size: 16px; font-weight: 500; line-height: 1.65; color: var(--red-deep); margin-bottom: 26px;
 }
 .welcome-modal-signoff{
   position: relative; z-index: 1;
