@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="doc-title">Blog — Glyphic Palette</title>
+<meta name="description" id="doc-desc" content="Glyphic Palette blog.">
+<meta property="og:title" id="og-title" content="Glyphic Palette Blog">
+<meta property="og:description" id="og-desc" content="Glyphic Palette blog.">
+<meta property="og:image" id="og-image" content="">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="is-active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="contact.html" class="btn btn-ghost">Start a project</a>
+  </div>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nav-backdrop"></div>
+<div class="nav-panel">
+  <button class="nav-panel-close" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <ul class="nav-links-list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="is-active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-panel-socials">
+    <a href="https://wa.me/917751054772" class="nav-social nav-social-whatsapp" aria-label="WhatsApp" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/><path d="M8.5 8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .6.4.2.5.7 1.7.7 1.8.1.1.1.3 0 .4-.1.2-.1.3-.3.5-.1.2-.3.3-.4.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.1.4.2.5.3.1.2.1.9-.2 1.7-.3.8-1.7 1.5-2.3 1.6-.6.1-1.3.1-2.1-.1-.5-.1-1.1-.3-1.9-.7-3.3-1.4-5.4-4.8-5.6-5-.2-.3-1.3-1.7-1.3-3.3 0-1.6.8-2.3 1.1-2.7z"/></svg>
+    </a>
+    <a href="#" class="nav-social nav-social-instagram" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+    </a>
+    <a href="#" class="nav-social nav-social-linkedin" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- Loaded state -->
+<div id="post-view" style="display:none;">
+  <header class="hero page-hero post-hero">
+    <div class="page-hero-bg" aria-hidden="true">
+      <span class="page-hero-mark">Blog</span>
+      <span class="page-hero-dot page-hero-dot-1"></span>
+      <span class="page-hero-dot page-hero-dot-2"></span>
+      <span class="page-hero-dot page-hero-dot-3"></span>
+    </div>
+    <div class="wrap">
+      <span class="post-tag" id="post-tag"></span>
+      <h1 class="post-title" id="post-title"></h1>
+      <div class="post-meta-row">
+        <span id="post-date"></span>
+        <span class="dot"></span>
+        <span id="post-readtime"></span>
+        <div class="post-share">
+          <button id="share-copy" type="button">Copy link</button>
+          <button id="share-wa" type="button">Share on WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="post-cover wrap">
+    <img id="post-cover-img" src="" alt="">
+  </div>
+
+  <section class="post-body-wrap">
+    <div class="wrap">
+      <div class="post-body" id="post-body"></div>
+      <div class="post-tags-row" id="post-tags-row"></div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="related-section" style="display:none;">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Read next</h2>
+      </div>
+      <div class="blog-grid" id="related-grid"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-banner">
+        <p class="eyebrow">Let's talk</p>
+        <h2>Tell us what<br>you're building.</h2>
+        <a href="contact.html" class="btn btn-primary">Start a project</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Not found / loading state -->
+<div id="post-notfound" class="post-notfound" style="display:none;">
+  <h1>This post wandered off.</h1>
+  <p>It may have been unpublished or the link is off. Head back to the blog to find what you're after.</p>
+  <a href="blog.html" class="btn btn-primary">Back to the blog</a>
+</div>
+<div id="post-loading" style="padding:140px 20px; text-align:center; color:var(--gray);">Loading post…</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
+        <p>A design and growth agency for businesses that want their brand to feel inevitable.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Networks</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@glyphicpalette.com">info@glyphicpalette.com</a></li>
+            <li><a href="tel:+917751054772">+91 77510 54772</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Glyphic Palette. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+  <div class="footer-marquee">
+    <div class="marquee-track">
+      <span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span>
+      <span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="assets/blog-data.js"></script>
+<script src="assets/script.js"></script>
+
+<script>
+(async function(){
+  const slug = new URLSearchParams(window.location.search).get('slug');
+  const loadingEl = document.getElementById('post-loading');
+  const notFoundEl = document.getElementById('post-notfound');
+  const viewEl = document.getElementById('post-view');
+
+  function showNotFound(){
+    loadingEl.style.display = 'none';
+    notFoundEl.style.display = 'block';
+  }
+
+  if (!slug) { showNotFound(); return; }
+
+  try {
+    const post = await fetchPostBySlug(slug);
+    if (!post) { showNotFound(); return; }
+
+    const cover = blogCoverImage(post);
+    const tag = (post.tags && post.tags[0]) || 'Journal';
+
+    document.getElementById('doc-title').textContent = post.title + ' — Glyphic Palette Blog';
+    document.getElementById('doc-desc').setAttribute('content', post.metaDescription || post.excerpt || '');
+    document.getElementById('og-title').setAttribute('content', post.title);
+    document.getElementById('og-desc').setAttribute('content', post.metaDescription || post.excerpt || '');
+    document.getElementById('og-image').setAttribute('content', cover);
+
+    document.getElementById('post-tag').textContent = tag;
+    document.getElementById('post-title').textContent = post.title;
+    document.getElementById('post-date').textContent = blogFormatDate(post.createdAt);
+    document.getElementById('post-readtime').textContent = blogReadTime(post) + ' min read';
+    document.getElementById('post-cover-img').src = cover;
+    document.getElementById('post-cover-img').alt = post.title;
+    document.getElementById('post-body').innerHTML = post.content || '';
+
+    const tagsRow = document.getElementById('post-tags-row');
+    tagsRow.innerHTML = (post.tags || []).map(t => `<span class="post-tag-chip">${blogEscapeHtml(t)}</span>`).join('');
+
+    document.getElementById('share-copy').addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.getElementById('share-copy');
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = original, 1800);
+      });
+    });
+    document.getElementById('share-wa').addEventListener('click', () => {
+      const text = encodeURIComponent(post.title + ' — ' + window.location.href);
+      window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener');
+    });
+
+    loadingEl.style.display = 'none';
+    viewEl.style.display = 'block';
+
+    // related posts: same primary tag, else latest others
+    const allPosts = await fetchPublishedPosts();
+    let related = allPosts.filter(p => p.slug !== post.slug && (p.tags || []).some(t => (post.tags || []).includes(t)));
+    if (related.length < 3) {
+      const rest = allPosts.filter(p => p.slug !== post.slug && !related.includes(p));
+      related = related.concat(rest).slice(0, 3);
+    } else {
+      related = related.slice(0, 3);
+    }
+    if (related.length) {
+      document.getElementById('related-section').style.display = 'block';
+      document.getElementById('related-grid').innerHTML = related.map(blogCardHTML).join('');
+    }
+  } catch (err) {
+    console.error(err);
+    showNotFound();
+  }
+})();
+</script>
+</body>
+</html>

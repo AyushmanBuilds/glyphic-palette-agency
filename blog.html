@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Glyphic Palette</title>
+<meta name="description" content="Notes on branding, marketing, and building things that last — from the Glyphic Palette studio in Berhampur, Odisha.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="is-active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="contact.html" class="btn btn-ghost">Start a project</a>
+  </div>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nav-backdrop"></div>
+<div class="nav-panel">
+  <button class="nav-panel-close" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <ul class="nav-links-list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="is-active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-panel-socials">
+    <a href="https://wa.me/917751054772" class="nav-social nav-social-whatsapp" aria-label="WhatsApp" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/><path d="M8.5 8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .6.4.2.5.7 1.7.7 1.8.1.1.1.3 0 .4-.1.2-.1.3-.3.5-.1.2-.3.3-.4.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.1.4.2.5.3.1.2.1.9-.2 1.7-.3.8-1.7 1.5-2.3 1.6-.6.1-1.3.1-2.1-.1-.5-.1-1.1-.3-1.9-.7-3.3-1.4-5.4-4.8-5.6-5-.2-.3-1.3-1.7-1.3-3.3 0-1.6.8-2.3 1.1-2.7z"/></svg>
+    </a>
+    <a href="#" class="nav-social nav-social-instagram" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+    </a>
+    <a href="#" class="nav-social nav-social-linkedin" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
+    </a>
+  </div>
+</div>
+
+<header class="hero page-hero">
+  <div class="page-hero-bg" aria-hidden="true">
+    <span class="page-hero-mark">Blog</span>
+    <span class="page-hero-dot page-hero-dot-1"></span>
+    <span class="page-hero-dot page-hero-dot-2"></span>
+    <span class="page-hero-dot page-hero-dot-3"></span>
+  </div>
+  <div class="hero-inner">
+    <p class="hero-tag"><span class="dot"></span>The journal</p>
+    <h1>Notes on brands worth building.</h1>
+    <div class="hero-sub">
+      <p class="lede">Branding, marketing, and web notes from the studio — plus what's actually happening at Glyphic Palette day to day.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Studio strip (daily updates) ===== -->
+<section class="section-alt" id="studio-strip-section" style="display:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>From the studio</h2>
+      <p class="lede">Quick updates from the day to day — client meetings, site visits, work in progress.</p>
+    </div>
+    <div class="studio-strip-track" id="studio-strip-track"></div>
+  </div>
+</section>
+
+<!-- ===== Featured post ===== -->
+<section id="featured-post-section" style="display:none;">
+  <div class="wrap">
+    <div class="blog-featured" id="featured-post"></div>
+  </div>
+</section>
+
+<!-- ===== Toolbar + grid ===== -->
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>All posts</h2>
+    </div>
+
+    <div class="blog-toolbar">
+      <div class="blog-search">
+        <input type="text" id="blog-search-input" placeholder="Search posts…">
+      </div>
+      <div class="blog-tags" id="blog-tag-filters"></div>
+    </div>
+
+    <div id="blog-loading" class="blog-skel-grid">
+      <div class="blog-skel-card"><div class="blog-skel-img"></div><div class="blog-skel-lines"><div class="blog-skel-line"></div><div class="blog-skel-line short"></div></div></div>
+      <div class="blog-skel-card"><div class="blog-skel-img"></div><div class="blog-skel-lines"><div class="blog-skel-line"></div><div class="blog-skel-line short"></div></div></div>
+      <div class="blog-skel-card"><div class="blog-skel-img"></div><div class="blog-skel-lines"><div class="blog-skel-line"></div><div class="blog-skel-line short"></div></div></div>
+    </div>
+
+    <div class="blog-grid" id="blog-grid" style="display:none;"></div>
+    <div class="blog-empty" id="blog-empty" style="display:none;">No posts match that search or filter yet.</div>
+
+    <div class="blog-loadmore" id="blog-loadmore" style="display:none;">
+      <button class="btn btn-ghost" id="blog-loadmore-btn">Load more posts</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-banner">
+      <p class="eyebrow">Let's talk</p>
+      <h2>Tell us what<br>you're building.</h2>
+      <a href="contact.html" class="btn btn-primary">Start a project</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
+        <p>A design and growth agency for businesses that want their brand to feel inevitable.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Networks</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@glyphicpalette.com">info@glyphicpalette.com</a></li>
+            <li><a href="tel:+917751054772">+91 77510 54772</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Glyphic Palette. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+  <div class="footer-marquee">
+    <div class="marquee-track">
+      <span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span>
+      <span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span><span>Glyphic Palette</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="assets/blog-data.js"></script>
+<script src="assets/script.js"></script>
+
+<script>
+(async function(){
+  const PAGE_SIZE = 9;
+  let allPosts = [];
+  let activeTag = 'all';
+  let searchTerm = '';
+  let visibleCount = PAGE_SIZE;
+
+  const gridEl = document.getElementById('blog-grid');
+  const loadingEl = document.getElementById('blog-loading');
+  const emptyEl = document.getElementById('blog-empty');
+  const loadmoreWrap = document.getElementById('blog-loadmore');
+  const loadmoreBtn = document.getElementById('blog-loadmore-btn');
+
+  function filteredPosts(){
+    return allPosts.filter(p => {
+      if (activeTag !== 'all' && !(p.tags || []).includes(activeTag)) return false;
+      if (searchTerm && !((p.title||'') + ' ' + (p.excerpt||'')).toLowerCase().includes(searchTerm)) return false;
+      return true;
+    });
+  }
+
+  function renderTagFilters(){
+    const tagSet = new Set();
+    allPosts.forEach(p => (p.tags || []).forEach(t => tagSet.add(t)));
+    const wrap = document.getElementById('blog-tag-filters');
+    wrap.innerHTML = '';
+    const makeChip = (label, value) => {
+      const btn = document.createElement('button');
+      btn.className = 'blog-tag-chip' + (activeTag === value ? ' is-active' : '');
+      btn.textContent = label;
+      btn.onclick = () => { activeTag = value; visibleCount = PAGE_SIZE; renderTagFilters(); renderGrid(); };
+      return btn;
+    };
+    wrap.appendChild(makeChip('All', 'all'));
+    Array.from(tagSet).sort().forEach(t => wrap.appendChild(makeChip(t, t)));
+  }
+
+  function renderFeatured(){
+    const featured = allPosts.find(p => p.featured) || allPosts[0];
+    const section = document.getElementById('featured-post-section');
+    if (!featured) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+    const cover = blogCoverImage(featured);
+    const tag = (featured.tags && featured.tags[0]) || 'Journal';
+    document.getElementById('featured-post').innerHTML = `
+      <div class="blog-featured-img"><img src="${cover}" alt=""></div>
+      <div class="blog-featured-body">
+        <span class="blog-featured-eyebrow"><span class="dot"></span>Featured · ${blogEscapeHtml(tag)}</span>
+        <h3 class="blog-featured-title">${blogEscapeHtml(featured.title)}</h3>
+        <p class="blog-featured-excerpt">${blogEscapeHtml(featured.excerpt || '')}</p>
+        <p class="blog-featured-meta">${blogFormatDate(featured.createdAt)} · ${blogReadTime(featured)} min read</p>
+        <a class="btn btn-primary" href="blog-post.html?slug=${encodeURIComponent(featured.slug)}" style="width:fit-content;">Read the post</a>
+      </div>`;
+  }
+
+  function renderGrid(){
+    const list = filteredPosts();
+    if (!list.length){
+      gridEl.style.display = 'none';
+      emptyEl.style.display = 'block';
+      loadmoreWrap.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    gridEl.style.display = 'grid';
+    const visible = list.slice(0, visibleCount);
+    gridEl.innerHTML = visible.map(blogCardHTML).join('');
+    loadmoreWrap.style.display = list.length > visible.length ? 'flex' : 'none';
+  }
+
+  loadmoreBtn.addEventListener('click', () => { visibleCount += PAGE_SIZE; renderGrid(); });
+  document.getElementById('blog-search-input').addEventListener('input', e => {
+    searchTerm = e.target.value.trim().toLowerCase();
+    visibleCount = PAGE_SIZE;
+    renderGrid();
+  });
+
+  try {
+    allPosts = await fetchPublishedPosts();
+    loadingEl.style.display = 'none';
+    renderFeatured();
+    renderTagFilters();
+    renderGrid();
+  } catch (err) {
+    loadingEl.style.display = 'none';
+    emptyEl.textContent = 'Could not load posts right now — please refresh.';
+    emptyEl.style.display = 'block';
+    console.error(err);
+  }
+
+  try {
+    const daily = await fetchPublishedDailyUpdates(8);
+    if (daily.length){
+      document.getElementById('studio-strip-section').style.display = 'block';
+      document.getElementById('studio-strip-track').innerHTML = daily.map(d => {
+        const imgs = (d.imageUrls || []).slice(0, 2);
+        return `
+          <div class="studio-card">
+            ${imgs.length ? `<div class="studio-card-imgs">${imgs.map(u => `<img src="${u}" alt="">`).join('')}</div>` : '<div class="studio-card-noimg"></div>'}
+            <div class="studio-card-body">
+              <span class="studio-tag-pill">${blogEscapeHtml(d.tag || 'Update')}</span>
+              <p class="studio-card-text">${blogEscapeHtml(d.text)}</p>
+              <p class="studio-card-meta">${blogFormatDate(d.createdAt)}${d.location ? ' · ' + blogEscapeHtml(d.location) : ''}</p>
+            </div>
+          </div>`;
+      }).join('');
+    }
+  } catch (err) { console.error(err); }
+})();
+</script>
+</body>
+</html>
