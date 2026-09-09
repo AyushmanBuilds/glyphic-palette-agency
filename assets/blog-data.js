@@ -82,13 +82,22 @@ function blogEscapeHtml(str) {
   return div.innerHTML;
 }
 
-/** Renders a single blog card's inner HTML (used by home + listing + related). */
+/** Publisher mark shown as the circular byline logo on cards and the post page. */
+const BLOG_PUBLISHER_LOGO = 'assets/publisher-mark.png';
+const BLOG_PUBLISHER_NAME = 'Glyphic Palette';
+
+/** Renders a single blog card's inner HTML (used by home + listing + related).
+ *  Cover image uses object-fit:contain over a blurred fill of the same image
+ *  so every photo — portrait, landscape, square — shows in full, never cropped. */
 function blogCardHTML(post) {
   const cover = blogCoverImage(post);
   const tag = (post.tags && post.tags[0]) || 'Journal';
   return `
     <a class="blog-card" href="blog-post.html?slug=${encodeURIComponent(post.slug)}">
-      <div class="blog-card-img"><img src="${cover}" alt="" loading="lazy"></div>
+      <div class="blog-card-img">
+        <div class="blog-card-img-bg" style="background-image:url('${cover}')" aria-hidden="true"></div>
+        <img src="${cover}" alt="" loading="lazy">
+      </div>
       <div class="blog-card-body">
         <div class="blog-card-tagrow">
           <span class="blog-card-tag">${blogEscapeHtml(tag)}</span>
@@ -97,6 +106,8 @@ function blogCardHTML(post) {
         <h3 class="blog-card-title">${blogEscapeHtml(post.title)}</h3>
         <p class="blog-card-excerpt">${blogEscapeHtml(post.excerpt || '')}</p>
         <div class="blog-card-meta">
+          <span class="blog-card-publisher"><img class="blog-card-publisher-logo" src="${BLOG_PUBLISHER_LOGO}" alt="" loading="lazy">${BLOG_PUBLISHER_NAME}</span>
+          <span class="blog-card-dot">·</span>
           <span>${blogFormatDate(post.createdAt)}</span>
           <span class="blog-card-dot">·</span>
           <span>${blogReadTime(post)} min read</span>

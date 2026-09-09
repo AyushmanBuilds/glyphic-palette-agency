@@ -220,7 +220,10 @@
     const cover = blogCoverImage(featured);
     const tag = (featured.tags && featured.tags[0]) || 'Journal';
     document.getElementById('featured-post').innerHTML = `
-      <div class="blog-featured-img"><img src="${cover}" alt=""></div>
+      <div class="blog-featured-img">
+        <div class="blog-featured-img-bg" style="background-image:url('${cover}')" aria-hidden="true"></div>
+        <img src="${cover}" alt="">
+      </div>
       <div class="blog-featured-body">
         <span class="blog-featured-eyebrow"><span class="dot"></span>Featured · ${blogEscapeHtml(tag)}</span>
         <h3 class="blog-featured-title">${blogEscapeHtml(featured.title)}</h3>

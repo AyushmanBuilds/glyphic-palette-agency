@@ -12,6 +12,33 @@
 </head>
 <body>
 
+<!-- =========================================================
+     Welcome pop-up — shown once per browser session shortly after
+     the home page loads. Closed via ×, "Continue exploring", a
+     backdrop click, or Escape (see initWelcomeModal in script.js).
+     ========================================================= -->
+<div class="welcome-modal-backdrop" id="welcome-backdrop" aria-hidden="true"></div>
+<div class="welcome-modal" id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="welcome-modal-title" aria-hidden="true">
+  <div class="welcome-modal-frame">
+    <div class="welcome-modal-card">
+      <button class="welcome-modal-close" id="welcome-modal-close" aria-label="Close welcome message">&times;</button>
+      <div class="welcome-modal-confetti" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <span class="welcome-modal-ribbon">Welcome to the studio</span>
+      <img class="welcome-modal-avatar" src="assets/founder.jpg" alt="Minakshi Sahu">
+      <h3 class="welcome-modal-title" id="welcome-modal-title">Hi, I'm Minakshi</h3>
+      <p class="welcome-modal-role">Founder &amp; Creative Head, Glyphic Palette</p>
+      <p class="welcome-modal-msg">So glad you found your way here. Everything on this site — every brand, every build — is work our studio genuinely cares about, and I'd love for you to have a proper look around. Take your time with the showcase, and do swing by the blog for notes on branding and growth we don't post anywhere else. If something here speaks to what you're building, I'd love to hear from you directly.</p>
+      <div class="welcome-modal-actions">
+        <a href="blog.html" class="btn btn-primary">Visit the blog</a>
+        <a href="https://wa.me/917751054772" target="_blank" rel="noopener" class="btn btn-ghost">Connect with me</a>
+      </div>
+      <button class="welcome-modal-dismiss" id="welcome-modal-dismiss">Continue exploring →</button>
+    </div>
+  </div>
+</div>
+
 <nav class="nav">
   <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
   <ul class="nav-links">
@@ -128,7 +155,7 @@
     </div>
   </div>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-animate="fade-up">
       <h2>Creative Showcase</h2>
       <p class="lede">Here's How to Turn an Idea into a Content that Speaks for Itself</p>
     </div>
@@ -155,7 +182,7 @@
      ========================================================= -->
 <section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-animate="fade-up">
       <h2>What we do</h2>
       <p class="lede">Six disciplines, one team — so a brand's strategy, look, and media never drift out of sync.</p>
     </div>
@@ -170,21 +197,21 @@
 
 <section class="section-alt">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-animate="fade-up">
       <h2>Why Glyphic Palette</h2>
     </div>
     <div class="pillars">
-      <div class="pillar">
+      <div class="pillar" data-animate="fade-up">
         <p class="pillar-num">01</p>
         <h3>Full-funnel, one roof</h3>
         <p>Strategy, design, content, and media handled by a team that already knows the brand — nothing gets lost in a handoff.</p>
       </div>
-      <div class="pillar">
+      <div class="pillar" data-animate="fade-up">
         <p class="pillar-num">02</p>
         <h3>Direct, fast communication</h3>
         <p>No account layers between you and the work. You talk to the people actually building it.</p>
       </div>
-      <div class="pillar">
+      <div class="pillar" data-animate="fade-up">
         <p class="pillar-num">03</p>
         <h3>Built for measurable growth</h3>
         <p>Every project ties back to a number worth reporting — traffic, leads, or sales, not just "engagement."</p>
@@ -195,7 +222,7 @@
 
 <section class="wall-section">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-animate="fade-up">
       <h2>What clients say</h2>
       <p class="lede">Two rows, always moving in opposite directions — hover either one to pause and read.</p>
     </div>
@@ -216,7 +243,7 @@
      ========================================================= -->
 <section id="home-blog">
   <div class="wrap">
-    <div class="section-head home-blog-head">
+    <div class="section-head home-blog-head" data-animate="fade-up">
       <div>
         <h2>From the blog</h2>
         <p class="lede">Notes on branding, marketing, and building things that last.</p>
@@ -236,7 +263,7 @@
 
 <section class="section-alt">
   <div class="wrap">
-    <div class="cta-banner">
+    <div class="cta-banner" data-animate="zoom-in">
       <p class="eyebrow">Ready when you are</p>
       <h2>Let's build a brand<br>people remember.</h2>
       <a href="contact.html" class="btn btn-primary">Start a project</a>
@@ -246,37 +273,37 @@
 
 <section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-animate="fade-up">
       <h2>FAQ</h2>
     </div>
     <div class="faq-list">
 
-      <div class="faq-item">
+      <div class="faq-item" data-animate="fade-up">
         <button class="faq-q"><span><span class="num">01</span> What does Glyphic Palette actually do?</span><span class="plus"></span></button>
         <div class="faq-a"><p>We handle brand identity, websites, and the marketing that drives traffic to them — content, paid ads, social, and SEO — as one connected system rather than separate vendors.</p></div>
       </div>
 
-      <div class="faq-item">
+      <div class="faq-item" data-animate="fade-up">
         <button class="faq-q"><span><span class="num">02</span> How fast can a project start?</span><span class="plus"></span></button>
         <div class="faq-a"><p>Most engagements kick off within a week of a scoping call. Smaller projects like a landing page can start sooner.</p></div>
       </div>
 
-      <div class="faq-item">
+      <div class="faq-item" data-animate="fade-up">
         <button class="faq-q"><span><span class="num">03</span> Do you work with businesses outside Odisha?</span><span class="plus"></span></button>
         <div class="faq-a"><p>Yes. We're based in Berhampur but work with clients across India remotely, over calls and shared boards.</p></div>
       </div>
 
-      <div class="faq-item">
+      <div class="faq-item" data-animate="fade-up">
         <button class="faq-q"><span><span class="num">04</span> What's included in a website project?</span><span class="plus"></span></button>
         <div class="faq-a"><p>Strategy and structure, design, build, and a short handover so the client can update content without needing us for every change.</p></div>
       </div>
 
-      <div class="faq-item">
+      <div class="faq-item" data-animate="fade-up">
         <button class="faq-q"><span><span class="num">05</span> How is pricing structured?</span><span class="plus"></span></button>
         <div class="faq-a"><p>Fixed-scope quotes for defined projects like a website or brand identity, and monthly retainers for ongoing marketing work.</p></div>
       </div>
 
-      <div class="faq-item">
+      <div class="faq-item" data-animate="fade-up">
         <button class="faq-q"><span><span class="num">06</span> How do we get started?</span><span class="plus"></span></button>
         <div class="faq-a"><p>Send a note through the contact page with what you're building. We'll reply with next steps within a day.</p></div>
       </div>

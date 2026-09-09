@@ -16,6 +16,8 @@
 </head>
 <body>
 
+<div class="read-progress" aria-hidden="true"><div class="read-progress-bar" id="read-progress-bar"></div></div>
+
 <nav class="nav">
   <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
   <ul class="nav-links">
@@ -66,19 +68,43 @@
     <div class="wrap">
       <span class="post-tag" id="post-tag"></span>
       <h1 class="post-title" id="post-title"></h1>
+
+      <div class="post-publisher">
+        <img class="post-publisher-logo" src="assets/publisher-mark.png" alt="Glyphic Palette">
+        <div>
+          <p class="post-publisher-name">Glyphic Palette</p>
+          <p class="post-publisher-role">Published by the studio</p>
+        </div>
+      </div>
+
       <div class="post-meta-row">
         <span id="post-date"></span>
         <span class="dot"></span>
         <span id="post-readtime"></span>
         <div class="post-share">
-          <button id="share-copy" type="button">Copy link</button>
-          <button id="share-wa" type="button">Share on WhatsApp</button>
+          <button id="share-copy" type="button" aria-label="Copy link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <span>Copy link</span>
+          </button>
+          <button id="share-wa" class="post-share-wa" type="button" aria-label="Share on WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.9-1.3A10 10 0 1 0 12 2zm5.8 14.3c-.2.7-1.4 1.4-2 1.5-.5.1-1.1.1-1.8-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.6.7 1.7.1.1.1.3 0 .4-.1.2-.1.3-.2.4-.1.2-.3.3-.4.4-.1.1-.3.3-.1.6.2.3.8 1.2 1.6 2 1.1.9 2 1.3 2.3 1.4.3.1.4.1.6-.1.2-.2.7-.8.9-1 .2-.3.3-.2.6-.1.2.1 1.4.7 1.7.8.3.1.4.2.5.3.1.2.1.7-.1 1.4z"/></svg>
+            <span>WhatsApp</span>
+          </button>
+          <button id="share-ig" class="post-share-ig" type="button" aria-label="Share on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            <span>Instagram</span>
+          </button>
+          <button id="share-native" class="post-share-native" type="button" aria-label="More share options">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8.1 10.7 15.9 6.3M8.1 13.3l7.8 4.4"/></svg>
+            <span>Share</span>
+          </button>
         </div>
       </div>
     </div>
   </header>
 
   <div class="post-cover wrap">
+    <div class="post-cover-bg" id="post-cover-bg" aria-hidden="true"></div>
     <img id="post-cover-img" src="" alt="">
   </div>
 
@@ -201,26 +227,70 @@
     document.getElementById('post-readtime').textContent = blogReadTime(post) + ' min read';
     document.getElementById('post-cover-img').src = cover;
     document.getElementById('post-cover-img').alt = post.title;
+    document.getElementById('post-cover-bg').style.backgroundImage = `url('${cover}')`;
     document.getElementById('post-body').innerHTML = post.content || '';
 
     const tagsRow = document.getElementById('post-tags-row');
     tagsRow.innerHTML = (post.tags || []).map(t => `<span class="post-tag-chip">${blogEscapeHtml(t)}</span>`).join('');
 
-    document.getElementById('share-copy').addEventListener('click', () => {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        const btn = document.getElementById('share-copy');
-        const original = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = original, 1800);
-      });
+    const shareUrl = window.location.href;
+
+    function flashButtonLabel(btn, tempLabel){
+      const label = btn.querySelector('span');
+      if(!label) return;
+      const original = label.textContent;
+      btn.classList.add('is-copied');
+      label.textContent = tempLabel;
+      setTimeout(() => { label.textContent = original; btn.classList.remove('is-copied'); }, 1800);
+    }
+
+    document.getElementById('share-copy').addEventListener('click', (e) => {
+      navigator.clipboard.writeText(shareUrl).then(() => flashButtonLabel(e.currentTarget, 'Copied!'));
     });
+
     document.getElementById('share-wa').addEventListener('click', () => {
-      const text = encodeURIComponent(post.title + ' — ' + window.location.href);
+      const text = encodeURIComponent(post.title + ' — ' + shareUrl);
       window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener');
     });
 
+    // Instagram has no public web intent for sharing an arbitrary link,
+    // so the link is copied and the person is guided to paste it
+    // (into a bio, Story, or DM) inside the app/site that opens.
+    document.getElementById('share-ig').addEventListener('click', (e) => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        flashButtonLabel(e.currentTarget, 'Link copied!');
+        window.open('https://www.instagram.com/', '_blank', 'noopener');
+      });
+    });
+
+    // Native share sheet (mobile browsers, some desktop) — only shown
+    // when the API actually exists, so it never appears as a dead button.
+    const nativeBtn = document.getElementById('share-native');
+    if (navigator.share) {
+      nativeBtn.classList.add('is-supported');
+      nativeBtn.addEventListener('click', () => {
+        navigator.share({ title: post.title, text: post.excerpt || post.title, url: shareUrl }).catch(() => {});
+      });
+    }
+
     loadingEl.style.display = 'none';
     viewEl.style.display = 'block';
+
+    // ---- reading progress bar ----
+    const progressBar = document.getElementById('read-progress-bar');
+    const bodyEl = document.getElementById('post-body');
+    if (progressBar && bodyEl) {
+      const updateProgress = () => {
+        const rect = bodyEl.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const scrolled = -rect.top;
+        const pct = total > 0 ? Math.min(100, Math.max(0, (scrolled / total) * 100)) : 0;
+        progressBar.style.width = pct + '%';
+      };
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress);
+      updateProgress();
+    }
 
     // related posts: same primary tag, else latest others
     const allPosts = await fetchPublishedPosts();

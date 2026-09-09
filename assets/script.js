@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFAQ();
   initContactForm();
   initFounderReveal();
+  initWelcomeModal();
   requestAnimationFrame(() => {
     document.querySelectorAll(".hero").forEach(h => h.classList.add("is-ready"));
   });
@@ -553,9 +554,15 @@ function initFAQ(){
   });
 }
 
-/* ---------- Founder section reveal ---------- */
+/* ---------- Scroll reveal: founder section + generic [data-animate] blocks ----------
+   One shared observer. The founder section uses its own [data-reveal="left|right"]
+   attributes (bespoke slide-in either side); every other section on the site
+   opts in with [data-animate="fade-up|zoom-in|fade-left|fade-right"] and picks
+   up the matching entrance defined in style.css. Both just get an "is-in"
+   class added the first time they cross into view — cheap, one-shot, no
+   layout thrashing. */
 function initFounderReveal(){
-  const els = document.querySelectorAll("[data-reveal]");
+  const els = document.querySelectorAll("[data-reveal], [data-animate]");
   if(!els.length) return;
 
   if(!("IntersectionObserver" in window)){
@@ -570,9 +577,51 @@ function initFounderReveal(){
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.25, rootMargin: "0px 0px -60px 0px" });
+  }, { threshold: 0.2, rootMargin: "0px 0px -60px 0px" });
 
   els.forEach(el => io.observe(el));
+}
+
+/* ---------- Welcome pop-up ----------
+   Shows once per browser tab session (sessionStorage-gated) shortly after
+   the home page finishes loading — a personal note from the founder, not
+   a hard paywall-style interruption. Closes via the × button, the
+   "Continue exploring" link, a backdrop click, or Escape. */
+function initWelcomeModal(){
+  const backdrop = document.getElementById("welcome-backdrop");
+  const modal = document.getElementById("welcome-modal");
+  if(!backdrop || !modal) return;
+
+  const closeBtn = document.getElementById("welcome-modal-close");
+  const dismissBtn = document.getElementById("welcome-modal-dismiss");
+  const STORAGE_KEY = "gp_welcome_shown";
+
+  function openModal(){
+    backdrop.classList.add("is-open");
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("nav-lock");
+  }
+  function closeModal(){
+    backdrop.classList.remove("is-open");
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("nav-lock");
+    try{ sessionStorage.setItem(STORAGE_KEY, "1"); }catch(e){}
+  }
+
+  closeBtn && closeBtn.addEventListener("click", closeModal);
+  dismissBtn && dismissBtn.addEventListener("click", closeModal);
+  backdrop.addEventListener("click", closeModal);
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+
+  let alreadyShown = false;
+  try{ alreadyShown = sessionStorage.getItem(STORAGE_KEY) === "1"; }catch(e){}
+  if(!alreadyShown){
+    setTimeout(openModal, 900);
+  }
 }
 
 /* ---------- Contact form ----------
