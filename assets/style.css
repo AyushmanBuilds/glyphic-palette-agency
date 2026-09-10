@@ -1553,6 +1553,51 @@ footer{
   .process-item .pnum{ font-size: 28px; }
 }
 
+/* work strip — two related-work photos above Our story / How we work */
+.work-strip-section{ padding-top: 0; padding-bottom: 0; }
+.work-strip{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.work-strip-item{
+  position:relative;
+  margin:0;
+  border-radius: 14px;
+  overflow:hidden;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  background: var(--paper-alt);
+}
+.work-strip-item img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  display:block;
+  transition: transform .6s var(--ease);
+}
+.work-strip-item:hover img{ transform: scale(1.04); }
+.work-strip-item figcaption{
+  position:absolute;
+  left:16px; bottom:16px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(27,18,20,.72);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.work-strip-item figcaption .dot{ width:7px; height:7px; border-radius:50%; background: var(--red-bright); flex-shrink:0; }
+@media (max-width: 800px){
+  .work-strip{ grid-template-columns: 1fr; gap: 16px; }
+  .work-strip-item{ aspect-ratio: 16 / 11; }
+}
+
 /* misc */
 .two-col{
   display:grid;
