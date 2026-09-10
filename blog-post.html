@@ -3,16 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===== Primary SEO (defaults; overwritten per-post by the script at the bottom) ===== -->
 <title id="doc-title">Blog — Glyphic Palette</title>
-<meta name="description" id="doc-desc" content="Glyphic Palette blog.">
-<meta property="og:title" id="og-title" content="Glyphic Palette Blog">
-<meta property="og:description" id="og-desc" content="Glyphic Palette blog.">
-<meta property="og:image" id="og-image" content="">
+<meta name="description" id="doc-desc" content="Notes on branding, marketing, and web development from Glyphic Palette, the best creative agency in Berhampur, Odisha.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Glyphic Palette">
+<link rel="canonical" id="canonical-link" href="https://glyphicpalette.com/blog-post.html">
+
+<!-- ===== Open Graph ===== -->
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Glyphic Palette">
+<meta property="og:title" id="og-title" content="Glyphic Palette Blog">
+<meta property="og:description" id="og-desc" content="Notes on branding, marketing, and web development from Glyphic Palette, Berhampur.">
+<meta property="og:image" id="og-image" content="https://glyphicpalette.com/assets/gp_logo.png">
+<meta property="og:url" id="og-url" content="https://glyphicpalette.com/blog-post.html">
+<meta property="og:locale" content="en_IN">
+<meta property="article:publisher" content="Glyphic Palette">
+
+<!-- ===== Twitter Card ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="twitter-title" content="Glyphic Palette Blog">
+<meta name="twitter:description" id="twitter-desc" content="Notes on branding, marketing, and web development from Glyphic Palette, Berhampur.">
+<meta name="twitter:image" id="twitter-image" content="https://glyphicpalette.com/assets/gp_logo.png">
+
+<link rel="icon" href="assets/gp_logo.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/gp_logo.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+
+<!-- ===== Structured data: Breadcrumb (static part; JS appends the post itself) ===== -->
+<script type="application/ld+json" id="breadcrumb-jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://glyphicpalette.com/index.html" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://glyphicpalette.com/blog.html" }
+  ]
+}
+</script>
+<!-- Article JSON-LD is injected per-post by the script at the bottom of this page (#article-jsonld) -->
 </head>
 <body>
 
@@ -215,11 +249,50 @@
     const cover = blogCoverImage(post);
     const tag = (post.tags && post.tags[0]) || 'Journal';
 
+    const pageUrl = 'https://glyphicpalette.com/blog-post.html?slug=' + encodeURIComponent(post.slug);
+    const metaDesc = post.metaDescription || post.excerpt || '';
+
     document.getElementById('doc-title').textContent = post.title + ' — Glyphic Palette Blog';
-    document.getElementById('doc-desc').setAttribute('content', post.metaDescription || post.excerpt || '');
+    document.getElementById('doc-desc').setAttribute('content', metaDesc);
+    document.getElementById('canonical-link').setAttribute('href', pageUrl);
     document.getElementById('og-title').setAttribute('content', post.title);
-    document.getElementById('og-desc').setAttribute('content', post.metaDescription || post.excerpt || '');
+    document.getElementById('og-desc').setAttribute('content', metaDesc);
     document.getElementById('og-image').setAttribute('content', cover);
+    document.getElementById('og-url').setAttribute('content', pageUrl);
+    document.getElementById('twitter-title').setAttribute('content', post.title);
+    document.getElementById('twitter-desc').setAttribute('content', metaDesc);
+    document.getElementById('twitter-image').setAttribute('content', cover);
+
+    // Extend the breadcrumb with this post, and inject Article structured data
+    try {
+      const breadcrumbEl = document.getElementById('breadcrumb-jsonld');
+      const breadcrumbData = JSON.parse(breadcrumbEl.textContent);
+      breadcrumbData.itemListElement.push({ '@type': 'ListItem', 'position': 3, 'name': post.title, 'item': pageUrl });
+      breadcrumbEl.textContent = JSON.stringify(breadcrumbData);
+
+      const articleScript = document.createElement('script');
+      articleScript.type = 'application/ld+json';
+      articleScript.id = 'article-jsonld';
+      articleScript.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        'headline': post.title,
+        'description': metaDesc,
+        'image': cover,
+        'url': pageUrl,
+        'datePublished': post.createdAt ? post.createdAt.toDate().toISOString() : undefined,
+        'dateModified': (post.updatedAt || post.createdAt) ? (post.updatedAt || post.createdAt).toDate().toISOString() : undefined,
+        'author': { '@type': 'Organization', 'name': 'Glyphic Palette' },
+        'publisher': {
+          '@type': 'Organization',
+          'name': 'Glyphic Palette',
+          'logo': { '@type': 'ImageObject', 'url': 'https://glyphicpalette.com/assets/gp_logo.png' }
+        },
+        'mainEntityOfPage': { '@type': 'WebPage', '@id': pageUrl },
+        'keywords': (post.tags || []).join(', ')
+      });
+      document.head.appendChild(articleScript);
+    } catch (e) { console.error(e); }
 
     document.getElementById('post-tag').textContent = tag;
     document.getElementById('post-title').textContent = post.title;

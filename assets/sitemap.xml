@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://glyphicpalette.com/index.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://glyphicpalette.com/about.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://glyphicpalette.com/blog.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://glyphicpalette.com/contact.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!--
+    Individual blog posts (blog-post.html?slug=...) live in Firestore and are
+    added/edited from the admin panel, so they can't be listed here as static
+    entries — a URL sitemap can't safely include a query-string page per post
+    without a build step that reads the database. Two ways to close this gap:
+
+      1. Best long-term fix: give each post its own real path (e.g. a Cloud
+         Function or static export that generates /blog/<slug>.html), which
+         also helps these pages rank on their own.
+      2. Fastest fix with the current setup: a small script (Node, or a
+         scheduled Cloud Function) that queries the `blogPosts` collection
+         where published == true and regenerates this sitemap.xml with one
+         <url> block per post, e.g.:
+           https://glyphicpalette.com/blog-post.html?slug=<slug>
+         Run it whenever a post is published/unpublished, or on a daily timer.
+
+    Ask me and I can write that generator script.
+  -->
+
+</urlset>
