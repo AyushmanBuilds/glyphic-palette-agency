@@ -767,7 +767,7 @@ section{ padding: 110px 0; }
   overflow: hidden;
   position: relative;
 }
-.phone-screen video{
+.phone-screen img{
   width:100%; height:100%;
   object-fit: cover;
   display:block;

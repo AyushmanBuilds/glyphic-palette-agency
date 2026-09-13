@@ -139,8 +139,7 @@ function initWorkVortexReel(){
     card.innerHTML = `
       <video muted autoplay loop playsinline preload="none">
         <source src="${item.video}" type="video/mp4">
-      </video>
-      <span class="vortex-card-tag">${item.tag || item.name}</span>`;
+      </video>`;
     card.addEventListener("click", () => goTo(i));
     track.appendChild(card);
     return card;
@@ -160,9 +159,6 @@ function initWorkVortexReel(){
   let current = 0;
   function renderCaption(idx){
     current = idx;
-    const item = items[idx];
-    if(captionTitleEl) captionTitleEl.textContent = item.name;
-    if(captionDescEl) captionDescEl.textContent = item.desc || "";
     dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
     cards.forEach((c, i) => c.classList.toggle("is-center", i === idx));
   }
@@ -330,23 +326,23 @@ function initWorkVortexReel(){
    itself; `desc` is the longer line shown in the caption under the
    reel. Point `video` at your own clip in assets/videos/. */
 const WORK_ITEMS = [
-  { name: "Zero Grease — Brand Film",    tag: "Zero Grease — Brand Film",    desc: "A full identity and launch film for a D2C skincare label.", video: "assets/videos/work-1.mp4" },
-  { name: "Ledger — Product Walkthrough", tag: "Ledger — Product Walkthrough", desc: "Motion-led product explainer for a CA-firm client portal.", video: "assets/videos/work-2.mp4" },
-  { name: "Northside Kitchens — Site",    tag: "Northside Kitchens — Site",    desc: "Menu-first website and ordering flow for a local restaurant group.", video: "assets/videos/work-3.mp4" },
-  { name: "Solstice Fitness — Campaign",  tag: "Solstice Fitness — Campaign",  desc: "Paid social creative for a studio's membership push.", video: "assets/videos/work-4.mp4" },
-  { name: "Marrow Coffee — Identity",     tag: "Marrow Coffee — Identity",     desc: "Naming, packaging, and shopfront system for a roastery.", video: "assets/videos/work-5.mp4" },
-  { name: "Vantage Realty — Web App",     tag: "Vantage Realty — Web App",     desc: "Custom listings and enquiry tool built for a brokerage.", video: "assets/videos/work-6.mp4" },
+  { name: "Project 1", video: "assets/videos/Video-1.mp4" },
+  { name: "Project 2", video: "assets/videos/Video-2.mp4" },
+  { name: "Project 3", video: "assets/videos/Video-3.mp4" },
+  { name: "Project 4", video: "assets/videos/Video-4.mp4" },
+  { name: "Project 5", video: "assets/videos/Video-5.mp4" },
+  { name: "Project 6", video: "assets/videos/Video-6.mp4" },
 ];
 
 /* ---------- What We Do vortex reel ----------
    Same engine, driven by the service tabs instead of dots/arrows. */
 const SERVICE_ITEMS = [
-  { name: "Brand Identity & Strategy", color: "#e2233a", desc: "Positioning, naming, and visual systems that make a brand instantly recognizable.", video: "assets/videos/brand-identity.mp4" },
-  { name: "Social Media Marketing",   color: "#ff7849", desc: "Content calendars and community management that keep a brand part of the conversation.", video: "assets/videos/social-media.mp4" },
-  { name: "Paid Advertising",         color: "#ff4757", desc: "Performance campaigns across Meta, Google, and search, built to hit a number.", video: "assets/videos/paid-advertising.mp4" },
-  { name: "Content Marketing",        color: "#c81c33", desc: "Blogs, case studies, and video that earn attention on their own merit.", video: "assets/videos/content-marketing.mp4" },
-  { name: "Web Design & Dev",         color: "#a11d2e", desc: "Fast, distinctive sites built to convert visitors into customers.", video: "assets/videos/web-design.mp4" },
-  { name: "SEO & Search",             color: "#7f0f22", desc: "Technical and content SEO that gets a business found by people already looking.", video: "assets/videos/seo-search.mp4" },
+  { name: "Brand Identity & Strategy", color: "#e2233a", desc: "Positioning, naming, and visual systems that make a brand instantly recognizable.", video: "assets/service/s1.png" },
+  { name: "Social Media Marketing",   color: "#ff7849", desc: "Content calendars and community management that keep a brand part of the conversation.", video: "assets/service/s2.png" },
+  { name: "Paid Advertising",         color: "#ff4757", desc: "Performance campaigns across Meta, Google, and search, built to hit a number.", video: "assets/service/s3.png" },
+  { name: "Content Marketing",        color: "#c81c33", desc: "Blogs, case studies, and video that earn attention on their own merit.", video: "assets/service/s4.png" },
+  { name: "Web Design & Dev",         color: "#a11d2e", desc: "Fast, distinctive sites built to convert visitors into customers.", video: "assets/service/s5.png" },
+  { name: "SEO & Search",             color: "#7f0f22", desc: "Technical and content SEO that gets a business found by people already looking.", video: "assets/service/s6.png" },
 ];
 
 function initServicePhones(){
@@ -380,9 +376,7 @@ function initServicePhones(){
       <div class="phone">
         <div class="phone-notch"></div>
         <div class="phone-screen">
-          <video muted autoplay loop playsinline preload="none">
-            <source src="${s.video}" type="video/mp4">
-          </video>
+          <img src="${s.video}" alt="${s.name}" loading="lazy">
           <span class="phone-caption-label">${s.name}</span>
         </div>
       </div>`;
@@ -413,13 +407,6 @@ function initServicePhones(){
       orb.classList.toggle("is-center", abs === 0);
       orb.classList.toggle("is-far", abs > 1);
 
-      const video = orb.querySelector("video");
-      if(abs === 0){
-        if(video.preload !== "auto"){ video.preload = "auto"; video.load(); }
-        video.play().catch(() => {});
-      }else if(!video.paused){
-        video.pause();
-      }
     });
   }
 
