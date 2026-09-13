@@ -337,12 +337,12 @@ const WORK_ITEMS = [
 /* ---------- What We Do vortex reel ----------
    Same engine, driven by the service tabs instead of dots/arrows. */
 const SERVICE_ITEMS = [
-  { name: "Brand Identity & Strategy", color: "#e2233a", desc: "Positioning, naming, and visual systems that make a brand instantly recognizable.", video: "assets/service/s1.png" },
-  { name: "Social Media Marketing",   color: "#ff7849", desc: "Content calendars and community management that keep a brand part of the conversation.", video: "assets/service/s2.png" },
-  { name: "Paid Advertising",         color: "#ff4757", desc: "Performance campaigns across Meta, Google, and search, built to hit a number.", video: "assets/service/s3.png" },
-  { name: "Content Marketing",        color: "#c81c33", desc: "Blogs, case studies, and video that earn attention on their own merit.", video: "assets/service/s4.png" },
-  { name: "Web Design & Dev",         color: "#a11d2e", desc: "Fast, distinctive sites built to convert visitors into customers.", video: "assets/service/s5.png" },
-  { name: "SEO & Search",             color: "#7f0f22", desc: "Technical and content SEO that gets a business found by people already looking.", video: "assets/service/s6.png" },
+  { name: "", color: "#e2233a", desc: "Positioning, naming, and visual systems that make a brand instantly recognizable.", video: "assets/service/s1.png" },
+  { name: "",   color: "#ff7849", desc: "Content calendars and community management that keep a brand part of the conversation.", video: "assets/service/s2.png" },
+  { name: "",         color: "#ff4757", desc: "Performance campaigns across Meta, Google, and search, built to hit a number.", video: "assets/service/s3.png" },
+  { name: "",        color: "#c81c33", desc: "Blogs, case studies, and video that earn attention on their own merit.", video: "assets/service/s4.png" },
+  { name: "",         color: "#a11d2e", desc: "Fast, distinctive sites built to convert visitors into customers.", video: "assets/service/s5.png" },
+  { name: "",             color: "#7f0f22", desc: "Technical and content SEO that gets a business found by people already looking.", video: "assets/service/s6.png" },
 ];
 
 function initServicePhones(){
@@ -368,6 +368,7 @@ function initServicePhones(){
     tabsEl.appendChild(btn);
   });
   const tabs = Array.from(tabsEl.children);
+  let phoneRatioSet = false;
 
   const orbs = SERVICE_ITEMS.map((s, i) => {
     const orb = document.createElement("div");
@@ -382,6 +383,12 @@ function initServicePhones(){
       </div>`;
     orb.addEventListener("click", () => {
       if(shortestOffset(i, current, N) !== 0) goTo(i, true);
+    });
+    const img = orb.querySelector("img");
+    img.addEventListener("load", () => {
+      if(phoneRatioSet || !img.naturalWidth || !img.naturalHeight) return;
+      phoneRatioSet = true;
+      document.documentElement.style.setProperty("--phone-img-ratio", (img.naturalWidth / img.naturalHeight).toFixed(4));
     });
     stage.appendChild(orb);
     return orb;
