@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e2233a">
 
 <!-- ===== Primary SEO (defaults; overwritten per-post by the script at the bottom) ===== -->
 <title id="doc-title">Blog — Glyphic Palette</title>
@@ -30,10 +31,16 @@
 <link rel="icon" href="assets/gp_logo.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/gp_logo.png">
 
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+<link rel="dns-prefetch" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.min.css">
 
 <!-- ===== Structured data: Breadcrumb (static part; JS appends the post itself) ===== -->
 <script type="application/ld+json" id="breadcrumb-jsonld">
@@ -104,7 +111,7 @@
       <h1 class="post-title" id="post-title"></h1>
 
       <div class="post-publisher">
-        <img class="post-publisher-logo" src="assets/publisher-mark.png" alt="Glyphic Palette">
+        <img class="post-publisher-logo" src="assets/publisher-mark.webp" alt="Glyphic Palette">
         <div>
           <p class="post-publisher-name">Glyphic Palette</p>
           <p class="post-publisher-role">Published by the studio</p>
@@ -223,12 +230,12 @@
   </div>
 </footer>
 
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-<script src="assets/blog-data.js"></script>
-<script src="assets/script.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js" defer></script>
+<script src="assets/blog-data.min.js" defer></script>
+<script src="assets/script.min.js" defer></script>
 
-<script>
+<script type="module">
 (async function(){
   const slug = new URLSearchParams(window.location.search).get('slug');
   const loadingEl = document.getElementById('post-loading');

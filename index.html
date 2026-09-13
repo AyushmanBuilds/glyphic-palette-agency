@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e2233a">
 
 <!-- ===== Primary SEO ===== -->
 <title>Best Creative & Digital Marketing Agency in Berhampur | Glyphic Palette</title>
@@ -38,10 +39,18 @@
 <link rel="icon" href="assets/gp_logo.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/gp_logo.png">
 
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+<link rel="dns-prefetch" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.min.css">
 
 <!-- ===== Structured data: LocalBusiness ===== -->
 <script type="application/ld+json">
@@ -227,7 +236,7 @@
   <!-- Floating video, layered over the vortex canvas. Swap the src below
        for your own clip (vertical / 9:16 works best at this frame size). -->
   <div class="hero-video-frame">
-    <video muted autoplay loop playsinline preload="none">
+    <video muted autoplay loop playsinline preload="metadata" fetchpriority="high">
       <source src="assets/glyphic.mp4" type="video/mp4">
     </video>
   </div>
@@ -501,14 +510,14 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="assets/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="assets/script.min.js" defer></script>
 
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-<script src="assets/blog-data.js"></script>
-<script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js" defer></script>
+<script src="assets/blog-data.min.js" defer></script>
+<script type="module">
 (async function(){
   try {
     const posts = (await fetchPublishedPosts()).slice(0, 3);
