@@ -1,5 +1,13 @@
 {
+  "name": "glyphic-palette-blog-build",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Generates static, SEO-crawlable HTML for Glyphic Palette blog posts.",
+  "scripts": {
+    "build": "node build-blog.mjs"
+  },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+    "firebase": "^10.13.0"
   }
 }
