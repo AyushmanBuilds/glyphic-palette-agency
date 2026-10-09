@@ -58,13 +58,6 @@
 </head>
 <body>
 
-<script>
-(function(){
-  var slug = new URLSearchParams(window.location.search).get('slug');
-  if (slug) window.location.replace('blog/' + encodeURIComponent(slug) + '.html');
-})();
-</script>
-
 <div class="read-progress" aria-hidden="true"><div class="read-progress-bar" id="read-progress-bar"></div></div>
 
 <nav class="nav">
@@ -278,7 +271,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js" defer></script>
-<script src="assets/blog-data.min.js" defer></script>
+<script src="assets/blog-data.min.js?v=2" defer></script>
 <script src="assets/script.min.js" defer></script>
 
 <script type="module">

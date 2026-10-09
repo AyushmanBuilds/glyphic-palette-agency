@@ -270,7 +270,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js" defer></script>
-<script src="assets/blog-data.min.js" defer></script>
+<script src="assets/blog-data.min.js?v=2" defer></script>
 <script src="assets/script.min.js" defer></script>
 
 <script type="module">
@@ -346,7 +346,7 @@
         <h3 class="blog-featured-title">${blogEscapeHtml(featured.title)}</h3>
         <p class="blog-featured-excerpt">${blogEscapeHtml(featured.excerpt || '')}</p>
         <p class="blog-featured-meta">${blogFormatDate(featured.createdAt)} · ${blogReadTime(featured)} min read</p>
-        <a class="btn btn-primary" href="blog/${encodeURIComponent(featured.slug)}.html" style="width:fit-content;">Read the post</a>
+        <a class="btn btn-primary" href="blog-post.html?slug=${encodeURIComponent(featured.slug)}" style="width:fit-content;">Read the post</a>
       </div>`;
   }
 
