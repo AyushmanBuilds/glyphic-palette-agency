@@ -186,6 +186,7 @@
           <div class="post-body" id="post-body"></div>
           <div class="post-tags-row" id="post-tags-row"></div>
         </article>
+        <aside class="prail" id="post-rail"><div id="prail-flow"></div><div class="prail-stick" id="prail-stick"></div></aside>
         <aside class="bsb" id="blog-sidebar" aria-label="Browse more posts"></aside>
       </div>
     </div>
@@ -275,6 +276,33 @@
 <script src="assets/script.min.js" defer></script>
 
 <script type="module">
+function buildRail(all, post){
+  const esc = blogEscapeHtml, others = all.filter(p => p.slug !== post.slug);
+  const link = p => 'blog-post.html?slug=' + encodeURIComponent(p.slug);
+  const item = p => `<a class="prail-item" href="${link(p)}"><img src="${esc(blogCoverImage(p))}" alt="" loading="lazy"><span><b>${esc(p.title)}</b><small>${blogFormatDate(p.createdAt)} · ${blogReadTime(p)} min read</small></span></a>`;
+  const topics = BLOG_CATEGORY_KEYS.map(k => `<a class="prail-topic" href="blog.html#${k}"><span class="ico">${BLOG_CATEGORIES[k].icon}</span><span>${BLOG_CATEGORIES[k].label}</span><em>${all.filter(p => blogCategoryOf(p) === k).length}</em></a>`).join('');
+  document.getElementById('prail-flow').innerHTML =
+    `<div class="prail-card prail-studio"><div class="prail-who"><img src="assets/publisher-mark.webp" alt=""><div><b>Glyphic Palette</b><small>Creative &amp; growth studio, Berhampur</small></div></div><p>Branding, marketing and websites for businesses that want to be remembered.</p><div class="prail-btns"><a class="btn btn-primary" href="contact.html">Start a project</a><a class="btn btn-ghost" href="https://wa.me/918249614226" target="_blank" rel="noopener">WhatsApp</a></div></div>` +
+    (others.length ? `<div class="prail-card"><h4 class="prail-h">Latest from the journal</h4>${others.slice(0, 4).map(item).join('')}</div>` : '') +
+    `<div class="prail-card"><h4 class="prail-h">Browse by topic</h4>${topics}</div>`;
+  const heads = [...document.querySelectorAll('#post-body h2, #post-body h3')];
+  heads.forEach((h, i) => { h.id = h.id || 'sec-' + (i + 1); });
+  const toc = heads.length > 1 ? `<ol class="ptoc-list">${heads.map(h => `<li class="${h.tagName === 'H3' ? 'sub' : ''}"><a href="#${h.id}">${esc(h.textContent)}</a></li>`).join('')}</ol>` : '';
+  document.getElementById('prail-stick').innerHTML =
+    (toc ? `<div class="prail-card prail-toc"><h4 class="prail-h">In this article</h4>${toc}</div>` : '') +
+    `<div class="prail-card prail-dark"><h4>Want results like this for your business?</h4><a class="btn btn-primary" href="contact.html">Get a free consultation</a></div>`;
+  if (toc) document.getElementById('post-body').insertAdjacentHTML('beforebegin', `<details class="ptoc-inline"><summary>In this article</summary>${toc}</details>`);
+  const links = [...document.querySelectorAll('.ptoc-list a')];
+  if (links.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-90px 0px -70% 0px' });
+    heads.forEach(h => io.observe(h));
+  }
+  const i = all.findIndex(p => p.slug === post.slug), newer = all[i - 1], older = all[i + 1];
+  const pn = (p, l) => p ? `<a class="pnav-item" href="${link(p)}"><small>${l}</small><b>${esc(p.title)}</b></a>` : '<span></span>';
+  document.getElementById('post-tags-row').insertAdjacentHTML('afterend',
+    `<div class="pauthor"><img src="assets/publisher-mark.webp" alt=""><div><b>Written by the Glyphic Palette studio</b><p>Practical notes on branding, marketing and web from our team in Berhampur, Odisha.</p></div></div>` +
+    ((newer || older) ? `<div class="pnav">${pn(newer, 'Newer post')}${pn(older, 'Older post')}</div>` : ''));
+}
 (async function(){
   const slug = new URLSearchParams(window.location.search).get('slug');
   const loadingEl = document.getElementById('post-loading');
@@ -414,6 +442,7 @@
     // related posts: same primary tag, else latest others
     const allPosts = await fetchPublishedPosts();
     renderPostSidebar(allPosts, post);
+    try { buildRail(allPosts, post); } catch (e) { console.error(e); }
     let related = allPosts.filter(p => p.slug !== post.slug && ((blogCategoryOf(p) && blogCategoryOf(p) === blogCategoryOf(post)) || (p.tags || []).some(t => (post.tags || []).includes(t))));
     if (related.length < 3) {
       const rest = allPosts.filter(p => p.slug !== post.slug && !related.includes(p));

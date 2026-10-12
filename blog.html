@@ -68,7 +68,7 @@
 }
 </script>
 </head>
-<body>
+<body class="blog-page">
 
 <nav class="nav">
   <a href="index.html" class="nav-logo"><img src="assets/gp_logo.png" alt="Glyphic Palette" class="logo-img"></a>
@@ -191,6 +191,7 @@
       </div>
     </div>
 
+    <div class="blog-split"><div class="blog-split-main">
     <div id="blog-loading" class="blog-skel-grid" style="display:none;">
       <div class="blog-skel-card"><div class="blog-skel-img"></div><div class="blog-skel-lines"><div class="blog-skel-line"></div><div class="blog-skel-line short"></div></div></div>
       <div class="blog-skel-card"><div class="blog-skel-img"></div><div class="blog-skel-lines"><div class="blog-skel-line"></div><div class="blog-skel-line short"></div></div></div>
@@ -204,6 +205,9 @@
 
     <div class="blog-loadmore" id="blog-loadmore" style="display:none;">
       <button class="btn btn-ghost" id="blog-loadmore-btn">Load more posts</button>
+    </div>
+    </div>
+    <aside class="prail" id="blog-side"><div id="bside-flow"></div><div class="prail-stick" id="bside-stick"></div></aside>
     </div>
   </div>
 </section>
@@ -350,6 +354,35 @@
       </div>`;
   }
 
+  const PROMOS = [
+    '<a class="blog-card blog-promo" href="contact.html"><span class="blog-promo-k">Free review</span><h3>Get a free brand and website review</h3><p>Tell us about your business and we will send back three practical improvements.</p><span class="blog-promo-go">Request a review →</span></a>',
+    '<a class="blog-card blog-promo" href="https://wa.me/918249614226" target="_blank" rel="noopener"><span class="blog-promo-k">Your topic</span><h3>Want us to write about something?</h3><p>Send us a question about branding, ads, SEO or websites and we will cover it next.</p><span class="blog-promo-go">Message us on WhatsApp →</span></a>',
+    '<a class="blog-card blog-promo" href="services.html"><span class="blog-promo-k">What we do</span><h3>Six services, one team</h3><p>Brand, social, ads, content, web and SEO, handled by the same people.</p><span class="blog-promo-go">See our services →</span></a>'
+  ];
+  function fillers(n, hasMore){
+    if (hasMore) return '';
+    const need = n < 4 ? 4 - n : n % 2;
+    return PROMOS.slice(0, need).join('');
+  }
+  function buildSide(){
+    const esc = blogEscapeHtml;
+    const item = p => `<a class="prail-item" href="blog-post.html?slug=${encodeURIComponent(p.slug)}"><img src="${esc(blogCoverImage(p))}" alt="" loading="lazy"><span><b>${esc(p.title)}</b><small>${blogFormatDate(p.createdAt)} · ${blogReadTime(p)} min read</small></span></a>`;
+    const topics = BLOG_CATEGORY_KEYS.map(k => `<button type="button" class="prail-topic" data-cat="${k}"><span class="ico">${BLOG_CATEGORIES[k].icon}</span><span>${BLOG_CATEGORIES[k].label}</span><em>${allPosts.filter(p => blogCategoryOf(p) === k).length}</em></button>`).join('');
+    const freq = {}; allPosts.forEach(p => (p.tags || []).forEach(g => freq[g] = (freq[g] || 0) + 1));
+    const tags = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 12);
+    document.getElementById('bside-flow').innerHTML =
+      `<div class="prail-card prail-studio"><div class="prail-who"><img src="assets/publisher-mark.webp" alt=""><div><b>Glyphic Palette</b><small>Creative &amp; growth studio, Berhampur</small></div></div><p>Notes on branding, marketing and web, written by the people doing the work.</p><div class="prail-btns"><a class="btn btn-primary" href="contact.html">Start a project</a><a class="btn btn-ghost" href="services.html">Our services</a></div></div>` +
+      `<div class="prail-card"><h4 class="prail-h">Browse by topic</h4>${topics}</div>` +
+      `<div class="prail-card"><h4 class="prail-h">Latest posts</h4>${allPosts.slice(0, 5).map(item).join('')}</div>`;
+    document.getElementById('bside-stick').innerHTML =
+      (tags.length ? `<div class="prail-card"><h4 class="prail-h">Popular tags</h4><div class="prail-tags">${tags.map(g => `<button type="button" data-tag="${esc(g)}">${esc(g)}</button>`).join('')}</div></div>` : '') +
+      `<div class="prail-card prail-dark"><h4>Have a project in mind?</h4><a class="btn btn-primary" href="contact.html">Talk to the studio</a></div>`;
+    document.querySelectorAll('#bside-flow [data-cat]').forEach(b => b.onclick = () => { setCategory(b.dataset.cat); document.getElementById('blog-browse').scrollIntoView({ behavior: 'smooth' }); });
+    document.querySelectorAll('#bside-stick [data-tag]').forEach(b => b.onclick = () => { const i = document.getElementById('blog-search-input'); i.value = b.dataset.tag; i.dispatchEvent(new Event('input')); });
+    const sub = document.querySelector('.page-hero .hero-sub');
+    if (sub && allPosts.length) sub.insertAdjacentHTML('beforeend', `<div class="blog-stats"><span><b>${allPosts.length}</b> articles</span><span><b>${BLOG_CATEGORY_KEYS.length}</b> topics</span><span>Latest: ${blogFormatDate(allPosts[0].createdAt)}</span></div>`);
+  }
+
   function renderGrid(){
     const list = filteredPosts();
     if (!list.length){
@@ -362,7 +395,7 @@
     emptyEl.style.display = 'none';
     gridEl.style.display = 'grid';
     const visible = list.slice(0, visibleCount);
-    gridEl.innerHTML = visible.map(blogCardHTML).join('');
+    gridEl.innerHTML = visible.map(blogCardHTML).join('') + fillers(visible.length, list.length > visible.length);
     loadmoreWrap.style.display = list.length > visible.length ? 'flex' : 'none';
   }
 
@@ -378,6 +411,7 @@
     loadingEl.style.display = 'none';
     renderFeatured();
     renderCategoryUI();
+    buildSide();
     if (activeCat !== 'all') document.getElementById('blog-browse').scrollIntoView({ behavior: 'smooth' });
     renderGrid();
   } catch (err) {
