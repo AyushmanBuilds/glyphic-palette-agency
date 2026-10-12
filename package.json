@@ -1,12 +1,9 @@
 {
-  "name": "glyphic-palette-blog-build",
+  "name": "glyphic-palette",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Generates static, SEO-crawlable HTML for Glyphic Palette blog posts.",
-  "scripts": {
-    "build": "node build-blog.mjs"
-  },
+  "description": "Glyphic Palette website.",
   "dependencies": {
     "firebase": "^10.13.0"
   }
